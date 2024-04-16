@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <div th:replace="fragments/head :: head (Home)"></div>
+    <div th:replace="~{fragments/head :: head (Home)}"></div>
 </head>
-<body>
-    <div class="text-5xl">Hello world!</div>
+<body class="bg-slate-50 flex flex-col justify-center items-center">
+<p class="text-8xl mt-32 oswald text-gray-800">FOOD</p>
+<div class="mt-5"></div>
+<a sec:authorize="isAnonymous()"
+        href="/login"
+        class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+>로그인</a
+>
+<a sec:authorize="isAuthenticated()"
+   href="/logout"
+   class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+>로그아웃</a
+>
 </body>
 </html>
