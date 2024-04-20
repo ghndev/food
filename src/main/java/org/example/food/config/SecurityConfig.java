@@ -1,5 +1,7 @@
 package org.example.food.config;
 
+import lombok.RequiredArgsConstructor;
+import org.example.food.security.CustomOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -11,7 +13,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -22,6 +27,7 @@ public class SecurityConfig {
                 })
                 .oauth2Login(oauth2 -> {
                     oauth2.loginPage("/login");
+                    oauth2.userInfoEndpoint(userInfo -> userInfo.userService(customOAuth2UserService));
                 })
                 .logout(logout -> {
                     logout.logoutUrl("/logout");
@@ -30,4 +36,5 @@ public class SecurityConfig {
                 })
                 .build();
     }
+
 }
