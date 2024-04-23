@@ -33,4 +33,9 @@ public class Member {
         this.providerId = providerId;
         this.role = role;
     }
+
+    public Member updateName(String name) {
+        this.name = name;
+        return this;
+    }
 }

@@ -4,6 +4,13 @@
     <div th:replace="~{fragments/head :: head (Home)}"></div>
 </head>
 <body class="bg-slate-50 flex flex-col justify-center items-center">
+<a sec:authorize="isAuthenticated()" href="/profile">
+    <img
+            th:src="${image}"
+            alt=""
+            class="rounded-full w-14 absolute top-5 right-2"
+    />
+</a>
 <p class="text-8xl mt-32 oswald text-gray-800">FOOD</p>
 <div class="mt-5"></div>
 <a sec:authorize="isAnonymous()"
