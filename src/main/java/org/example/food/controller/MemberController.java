@@ -9,10 +9,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
@@ -55,6 +56,13 @@ public class MemberController {
         }
 
         memberService.updateMemberName(principalDetails.getMember().getId(), memberName);
+        return "redirect:/profile";
+    }
+
+    @ResponseBody
+    @PostMapping("/profile/upload")
+    public String updateProfileImage(@AuthenticationPrincipal PrincipalDetails principalDetails,@RequestParam("image") MultipartFile image) throws IOException {
+        memberService.updateMemberImage(principalDetails.getMember().getId(), image);
         return "redirect:/profile";
     }
 

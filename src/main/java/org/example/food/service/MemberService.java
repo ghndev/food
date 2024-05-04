@@ -1,36 +1,13 @@
 package org.example.food.service;
 
-import lombok.RequiredArgsConstructor;
-import org.example.food.domain.Member;
-import org.example.food.repository.MemberRepository;
-import org.example.food.security.PrincipalDetails;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-@Service
-@RequiredArgsConstructor
-public class MemberService {
+import java.io.IOException;
 
-    private final MemberRepository memberRepository;
+public interface MemberService {
+    void updateMemberName(Long memberId, String newName);
 
-    @Transactional
-    public void updateMemberName(Long memberId, String newName) {
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new RuntimeException("Member not found with id: " + memberId));
+    boolean existsMemberByName(String memberName);
 
-        Member updatedMember = member.updateName(newName);
-        updateUserDetails(updatedMember);
-    }
-
-    private static void updateUserDetails(Member updatedMember) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        principalDetails.setMember(updatedMember);
-    }
-
-    public boolean existsMemberByName(String memberName) {
-        return memberRepository.existsByName(memberName);
-    }
+    void updateMemberImage(Long memberId, MultipartFile image) throws IOException;
 }

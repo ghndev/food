@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <div th:replace="~{fragments/head :: head (Home)}"></div>
+    <div th:replace="~{fragments/head :: head (Profile)}"></div>
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -53,7 +53,7 @@
         <form id="uploadForm" class="upload" enctype="multipart/form-data">
             <img
                     th:src="${image}"
-                    class="w-32 rounded-full"
+                    class="w-24 h-24 rounded-full"
             />
             <div class="round">
                 <input
@@ -105,7 +105,23 @@
         <p class="mb-40 mt-10 text-4xl font-bold">개발중...</p>
     </div>
 </div>
-<script>
-</script>
 </body>
+<script>
+    function uploadImage() {
+        const formData = new FormData();
+        const imageFile = document.getElementById('imageInput').files[0];
+        formData.append('image', imageFile);
+
+        fetch('/profile/upload', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+                location.reload()
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
 </html>
