@@ -7,29 +7,17 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <style>
-        .oswald {
-            font-family: 'Oswald', sans-serif;
-            font-optical-sizing: auto;
-            font-weight: 400;
-            font-style: normal;
-        }
-        .orbit-regular {
-            font-family: 'Orbit', sans-serif;
-            font-weight: 400;
-            font-style: normal;
-        }
         .upload {
-            width: 100px;
             position: relative;
         }
         .upload .round {
             position: absolute;
-            bottom: 0;
-            right: 0;
-            background: #00b4ff;
+            top: 5px;
+            right: 1px;
+            background: #ff6347;
             width: 32px;
             height: 32px;
-            line-height: 33px;
+            line-height: 30px;
             text-align: center;
             border-radius: 50%;
             overflow: hidden;
@@ -46,67 +34,112 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 h-screen flex flex-col justify-center items-center">
-<p class="text-5xl oswald text-gray-800 font-bold oswald">Profile</p>
-<div class="w-80 flex flex-col mt-5 bg-white border p-3 shadow h-fit">
-    <div class="flex gap-2 p-1 items-center">
-        <form id="uploadForm" class="upload" enctype="multipart/form-data">
-            <img
-                    th:src="${image}"
-                    class="w-24 h-24 rounded-full"
-            />
-            <div class="round">
-                <input
-                        type="file"
-                        id="imageInput"
-                        accept="image/*"
-                        onchange="uploadImage()"
+<body>
+<div class="px-5 pt-10 flex flex-col justify-center items-center">
+    <div class="w-full max-w-2xl">
+        <!-- Header -->
+        <div class="w-full relative flex justify-center items-center">
+            <svg
+                    id="left-arrow"
+                    class="absolute left-1 w-14 rounded-full shadow-md p-2 cursor-pointer"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                        d="M10.25 9.02615L9.50135 8.9811C9.50045 8.9961 9.5 9.01113 9.5 9.02615H10.25ZM9.71578 8.10177L9.38104 8.77293L9.38104 8.77293L9.71578 8.10177ZM8.656 8.23115L8.16963 7.66024C8.16481 7.66434 8.16005 7.6685 8.15534 7.67273L8.656 8.23115ZM5.35 11.1952L4.84934 10.6367L4.84814 10.6378L5.35 11.1952ZM5 11.9902L5.75008 11.9964L5.74997 11.9839L5 11.9902ZM5.35 12.7852L4.84813 13.3425L4.84943 13.3437L5.35 12.7852ZM8.656 15.7482L8.15543 16.3067C8.16011 16.3109 8.16484 16.315 8.16963 16.3191L8.656 15.7482ZM9.71578 15.8775L9.38104 15.2064V15.2064L9.71578 15.8775ZM10.25 14.9532H9.5C9.5 14.9682 9.50045 14.9832 9.50135 14.9982L10.25 14.9532ZM10.25 11.2402C9.83579 11.2402 9.5 11.5759 9.5 11.9902C9.5 12.4044 9.83579 12.7402 10.25 12.7402V11.2402ZM19 12.7402C19.4142 12.7402 19.75 12.4044 19.75 11.9902C19.75 11.5759 19.4142 11.2402 19 11.2402V12.7402ZM11 11.9902V9.02615H9.5V11.9902L11 11.9902ZM10.9986 9.0712C11.04 8.38373 10.6668 7.738 10.0505 7.43061L9.38104 8.77293C9.45925 8.81193 9.5066 8.89387 9.50135 8.9811L10.9986 9.0712ZM10.0505 7.43061C9.4342 7.12323 8.69388 7.21361 8.16963 7.66024L9.14237 8.80206C9.2089 8.74539 9.30284 8.73392 9.38104 8.77293L10.0505 7.43061ZM8.15534 7.67273L4.84934 10.6367L5.85066 11.7536L9.15666 8.78958L8.15534 7.67273ZM4.84814 10.6378C4.46349 10.9842 4.24573 11.4788 4.25003 11.9964L5.74997 11.9839C5.74924 11.8958 5.78634 11.8115 5.85186 11.7525L4.84814 10.6378ZM4.25003 11.9839C4.24573 12.5015 4.46349 12.9961 4.84814 13.3425L5.85186 12.2278C5.78634 12.1688 5.74924 12.0845 5.74997 11.9964L4.25003 11.9839ZM4.84943 13.3437L8.15543 16.3067L9.15656 15.1896L5.85056 12.2266L4.84943 13.3437ZM8.16963 16.3191C8.69389 16.7657 9.4342 16.8561 10.0505 16.5487L9.38104 15.2064C9.30284 15.2454 9.2089 15.2339 9.14237 15.1772L8.16963 16.3191ZM10.0505 16.5487C10.6668 16.2413 11.04 15.5956 10.9986 14.9081L9.50135 14.9982C9.5066 15.0854 9.45925 15.1674 9.38104 15.2064L10.0505 16.5487ZM11 14.9532V11.9902L9.5 11.9902V14.9532L11 14.9532ZM10.25 12.7402H19V11.2402H10.25V12.7402Z"
+                        fill="#000000"
                 />
-                <i class="fa fa-camera" style="color: #fff"></i>
-            </div>
-        </form>
-        <div>
-            <div th:object="${memberNameEditRequest}">
-                <form id="form" th:action="@{/profile}" class="flex gap-2 items-center" method="post">
+            </svg>
+            <p class="text-2xl font-bold">Your Profile</p>
+        </div>
+
+        <!-- Profile Image -->
+        <div class="flex justify-center mt-10">
+            <form id="uploadForm" class="upload" enctype="multipart/form-data">
+                <img
+                        th:if="${image}"
+                        th:src="${image}"
+                        class="w-32 h-32 rounded-full"
+                />
+                <svg
+                        th:unless="${image}"
+                        class="w-32 rounded-full"
+                        viewBox="0 0 161 160"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                    <g opacity="0.1" clip-path="url(#clip0_2076_33382)">
+                        <path
+                                opacity="0.5"
+                                d="M161.072 80C161.072 124.183 125.254 160 81.0715 160C36.8888 160 1.07153 124.183 1.07153 80C1.07153 35.8172 36.8888 0 81.0715 0C125.254 0 161.072 35.8172 161.072 80Z"
+                                fill="#0D1217"
+                        />
+                        <path
+                                d="M119.527 136.09C108.59 143.603 95.3442 148 81.0718 148C66.7991 148 53.5534 143.603 42.6155 136.089C37.7847 132.771 35.7203 126.449 38.529 121.305C44.3516 110.642 56.3494 104 81.0714 104C105.794 104 117.791 110.642 123.614 121.306C126.423 126.45 124.358 132.771 119.527 136.09Z"
+                                fill="#0D1217"
+                        />
+                        <path
+                                d="M81.0719 80C94.3267 80 105.072 69.2548 105.072 56C105.072 42.7452 94.3267 32 81.0719 32C67.8171 32 57.0719 42.7452 57.0719 56C57.0719 69.2548 67.8171 80 81.0719 80Z"
+                                fill="#0D1217"
+                        />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_2076_33382">
+                            <rect
+                                    width="160"
+                                    height="160"
+                                    fill="white"
+                                    transform="translate(0.5)"
+                            />
+                        </clipPath>
+                    </defs>
+                </svg>
+
+                <div class="round">
                     <input
-                            th:value="${name}"
-                            th:id="memberName"
-                            name="memberName"
-                            type="text"
-                            class="bg-gray-50 border p-2 w-32 mr-1 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
+                            type="file"
+                            id="imageInput"
+                            accept="image/*"
+                            onchange="uploadImage()"
                     />
-                    <button type="submit">
-                        <svg
-                                class="w-9 mr-1"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                    d="M16.0303 10.0303C16.3232 9.73744 16.3232 9.26256 16.0303 8.96967C15.7374 8.67678 15.2626 8.67678 14.9697 8.96967L10.5 13.4393L9.03033 11.9697C8.73744 11.6768 8.26256 11.6768 7.96967 11.9697C7.67678 12.2626 7.67678 12.7374 7.96967 13.0303L9.96967 15.0303C10.2626 15.3232 10.7374 15.3232 11.0303 15.0303L16.0303 10.0303Z"
-                                    fill="#1C274C"
-                            />
-                            <path
-                                    fill-rule="evenodd"
-                                    clip-rule="evenodd"
-                                    d="M12.0574 1.25H11.9426C9.63424 1.24999 7.82519 1.24998 6.41371 1.43975C4.96897 1.63399 3.82895 2.03933 2.93414 2.93414C2.03933 3.82895 1.63399 4.96897 1.43975 6.41371C1.24998 7.82519 1.24999 9.63422 1.25 11.9426V12.0574C1.24999 14.3658 1.24998 16.1748 1.43975 17.5863C1.63399 19.031 2.03933 20.1711 2.93414 21.0659C3.82895 21.9607 4.96897 22.366 6.41371 22.5603C7.82519 22.75 9.63423 22.75 11.9426 22.75H12.0574C14.3658 22.75 16.1748 22.75 17.5863 22.5603C19.031 22.366 20.1711 21.9607 21.0659 21.0659C21.9607 20.1711 22.366 19.031 22.5603 17.5863C22.75 16.1748 22.75 14.3658 22.75 12.0574V11.9426C22.75 9.63423 22.75 7.82519 22.5603 6.41371C22.366 4.96897 21.9607 3.82895 21.0659 2.93414C20.1711 2.03933 19.031 1.63399 17.5863 1.43975C16.1748 1.24998 14.3658 1.24999 12.0574 1.25ZM3.9948 3.9948C4.56445 3.42514 5.33517 3.09825 6.61358 2.92637C7.91356 2.75159 9.62177 2.75 12 2.75C14.3782 2.75 16.0864 2.75159 17.3864 2.92637C18.6648 3.09825 19.4355 3.42514 20.0052 3.9948C20.5749 4.56445 20.9018 5.33517 21.0736 6.61358C21.2484 7.91356 21.25 9.62177 21.25 12C21.25 14.3782 21.2484 16.0864 21.0736 17.3864C20.9018 18.6648 20.5749 19.4355 20.0052 20.0052C19.4355 20.5749 18.6648 20.9018 17.3864 21.0736C16.0864 21.2484 14.3782 21.25 12 21.25C9.62177 21.25 7.91356 21.2484 6.61358 21.0736C5.33517 20.9018 4.56445 20.5749 3.9948 20.0052C3.42514 19.4355 3.09825 18.6648 2.92637 17.3864C2.75159 16.0864 2.75 14.3782 2.75 12C2.75 9.62177 2.75159 7.91356 2.92637 6.61358C3.09825 5.33517 3.42514 4.56445 3.9948 3.9948Z"
-                                    fill="#1C274C"
-                            />
-                        </svg>
-                    </button>
-                </form>
-                <p th:errors="*{memberName}" class="text-red-500 text-sm"></p>
-            </div>
-            <p>가입일: 2021.03.02</p>
+                    <i class="fa fa-pencil" style="color: #fff"></i>
+                </div>
+            </form>
+        </div>
+
+        <!-- Edit Form -->
+        <div th:object="${memberNameEditRequest}">
+            <form method="post" th:action="@{/profile}" class="mt-5 flex flex-col gap-5">
+                <input
+                        th:value="${name}"
+                        th:id="memberName"
+                        name="memberName"
+                        type="text"
+                        style="background-color: rgba(31, 42, 55, 0.05)"
+                        placeholder="Username"
+                        class="p-5 text-black border rounded-lg w-full outline-none"
+                />
+                <p th:errors="*{memberName}" class="text-red-500 text-sm">
+                    이미 존재하는 username입니다.
+                </p>
+
+                <button
+                        class="w-full bg-[#FF6347] p-5 rounded-full text-xl text-white font-semibold"
+                >
+                    Save
+                </button>
+            </form>
         </div>
     </div>
-    <div>
-        <p class="oswald font-bold text-2xl pt-5">주문내역</p>
-        <p class="mb-40 mt-10 text-4xl font-bold">개발중...</p>
-    </div>
 </div>
-</body>
 <script>
+    var leftArrow = document.getElementById('left-arrow')
+
+    leftArrow.addEventListener('click', function () {
+        window.history.back()
+    })
+
     function uploadImage() {
         const formData = new FormData();
         const imageFile = document.getElementById('imageInput').files[0];
@@ -124,4 +157,5 @@
             .catch(error => console.error('Error:', error));
     }
 </script>
+</body>
 </html>

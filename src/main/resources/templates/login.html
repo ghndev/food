@@ -3,34 +3,47 @@
 <head>
     <div th:replace="~{fragments/head :: head (Login)}"></div>
 </head>
-<body class="bg-slate-50 h-screen flex flex-col justify-center items-center">
-<div
-        class="p-3 border bg-white shadow-xl rounded-md w-80 flex flex-col items-center justify-center gap-y-10"
->
-    <h1 class="text-6xl oswald text-gray-800 mt-5">LOGIN</h1>
-    <a
-            href="/oauth2/authorization/google"
-            type="button"
-            class="bg-white hover:bg-gray-100 text-gray-800 font-semibold border border-gray-400 rounded shadow text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2"
-    >
-        <svg
-                class="w-4 h-4 me-2"
-                fill="#000000"
-                version="1.1"
-                id="Capa_1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 0 210 210"
-                xml:space="preserve"
+<body>
+<div class="px-5 pt-10 flex flex-col justify-center items-center">
+    <div class="w-full max-w-2xl">
+        <!-- Header -->
+        <div class="w-full flex justify-center items-center">
+            <h1 class="text-3xl font-bold text-[#FF6347] mt-10">Food Login</h1>
+        </div>
+
+        <!-- Login button-->
+        <div class="w-full flex justify-center items-center mt-10">
+            <a
+                    href="/oauth2/authorization/google"
+                    type="button"
+                    class="text-white bg-[#FF6347] font-bold focus:ring-4 focus:outline-none focus:ring-[#FF6347]/50 rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2"
+            >
+                <svg
+                        class="w-4 h-4 me-2"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 18 19"
+                >
+                    <path
+                            fill-rule="evenodd"
+                            d="M8.842 18.083a8.8 8.8 0 0 1-8.65-8.948 8.841 8.841 0 0 1 8.8-8.652h.153a8.464 8.464 0 0 1 5.7 2.257l-2.193 2.038A5.27 5.27 0 0 0 9.09 3.4a5.882 5.882 0 0 0-.2 11.76h.124a5.091 5.091 0 0 0 5.248-4.057L14.3 11H9V8h8.34c.066.543.095 1.09.088 1.636-.086 5.053-3.463 8.449-8.4 8.449l-.186-.002Z"
+                            clip-rule="evenodd"
+                    />
+                </svg>
+                구글로 계속하기
+            </a>
+        </div>
+        <div
+                class="flex flex-col w-full justify-center items-center font-bold text-sm"
         >
-          <path
-                  d="M0,105C0,47.103,47.103,0,105,0c23.383,0,45.515,7.523,64.004,21.756l-24.4,31.696C133.172,44.652,119.477,40,105,40
-	c-35.841,0-65,29.159-65,65s29.159,65,65,65c28.867,0,53.398-18.913,61.852-45H105V85h105v20c0,57.897-47.103,105-105,105
-	S0,162.897,0,105z"
-          />
-        </svg>
-        구글로 계속하기
-    </a>
+            <p class="text-gray-400 text-xs">
+                로그인을 하면 이용약관과 개인정보 수집 및 이용을 동의한것으로
+                간주합니다
+            </p>
+            <a href="/terms" class="underline">이용약관 개인정보 수집 및 이용동의</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

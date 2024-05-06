@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
@@ -22,10 +21,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping
-    public String home(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
-        if (principalDetails != null) {
-            model.addAttribute("image", principalDetails.getMember().getImageUrl());
-        }
+    public String home() {
         return "home";
     }
 
@@ -71,6 +67,11 @@ public class MemberController {
     @GetMapping("/login-test")
     public String testLogin(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         return principalDetails.getMember().getName()+", "+principalDetails.getName();
+    }
+
+    @GetMapping("/terms")
+    public String terms() {
+        return "terms";
     }
 
 }

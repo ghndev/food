@@ -32,7 +32,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
                 .orElse(Member.builder()
                         .email(attributes.getEmail())
                         .name(attributes.getName())
-                        .imageUrl(attributes.getPicture())
+//                        .imageUrl(attributes.getPicture()) 구글 이미지 사용 안함
                         .provider(attributes.getProvider())
                         .providerId(attributes.getProviderId())
                         .role(Role.ROLE_USER)
