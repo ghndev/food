@@ -38,7 +38,7 @@
 <div class="px-5 pt-10 flex flex-col justify-center items-center">
     <div class="w-full max-w-2xl">
         <!-- Header -->
-        <div class="w-full relative flex justify-center items-center">
+        <a href="/" class="w-full relative flex justify-center items-center">
             <svg
                     id="left-arrow"
                     class="absolute left-1 w-14 rounded-full shadow-md p-2 cursor-pointer"
@@ -52,7 +52,7 @@
                 />
             </svg>
             <p class="text-2xl font-bold">Your Profile</p>
-        </div>
+        </a>
 
         <!-- Profile Image -->
         <div class="flex justify-center mt-10">
@@ -124,38 +124,23 @@
                     이미 존재하는 username입니다.
                 </p>
 
-                <button
-                        class="w-full bg-[#FF6347] p-5 rounded-full text-xl text-white font-semibold"
-                >
-                    Save
-                </button>
+                <div class="flex flex-col gap-2">
+                    <button
+                            type="submit"
+                            class="w-full bg-[#FF6347] p-5 rounded-full text-xl text-white font-semibold"
+                    >
+                        Save
+                    </button>
+                    <a
+                            href="/logout"
+                            class="w-full text-center bg-[#FFEFED] text-[#FF6347] p-5 rounded-full text-xl font-semibold"
+                    >
+                        Logout
+                    </a>
+                </div>
             </form>
         </div>
     </div>
 </div>
-<script>
-    var leftArrow = document.getElementById('left-arrow')
-
-    leftArrow.addEventListener('click', function () {
-        window.history.back()
-    })
-
-    function uploadImage() {
-        const formData = new FormData();
-        const imageFile = document.getElementById('imageInput').files[0];
-        formData.append('image', imageFile);
-
-        fetch('/profile/upload', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.text())
-            .then(data => {
-                console.log(data);
-                location.reload()
-            })
-            .catch(error => console.error('Error:', error));
-    }
-</script>
 </body>
 </html>
