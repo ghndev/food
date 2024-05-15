@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <div th:replace="~{fragments/head :: head (Home)}"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.js"></script>
     <style>
         .madimi-one-regular {
             font-family: 'Madimi One', sans-serif;
@@ -262,20 +264,26 @@
                     />
                 </svg>
             </a>
-            <a href="" class="flex justify-center">
-                <svg
-                        class="w-6"
-                        viewBox="0 0 21 23"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M10.5 0.75C6.21983 0.75 2.75004 4.21979 2.75004 8.5V9.2041C2.75004 9.90102 2.54375 10.5824 2.15717 11.1622L1.00856 12.8851C-0.324532 14.8848 0.693176 17.6028 3.01177 18.2351C3.76738 18.4412 4.52937 18.6155 5.29578 18.7581L5.29768 18.7632C6.06667 20.8151 8.12198 22.25 10.5 22.25C12.878 22.25 14.9333 20.8151 15.7023 18.7632L15.7042 18.7581C16.4706 18.6155 17.2327 18.4412 17.9883 18.2351C20.3069 17.6028 21.3246 14.8848 19.9915 12.8851L18.8429 11.1622C18.4563 10.5824 18.25 9.90102 18.25 9.2041V8.5C18.25 4.21979 14.7802 0.75 10.5 0.75ZM13.8764 19.037C11.6335 19.305 9.36644 19.3049 7.12349 19.0369C7.83444 20.0585 9.07101 20.75 10.5 20.75C11.9289 20.75 13.1655 20.0585 13.8764 19.037ZM4.25004 8.5C4.25004 5.04822 7.04826 2.25 10.5 2.25C13.9518 2.25 16.75 5.04822 16.75 8.5V9.2041C16.75 10.1972 17.044 11.168 17.5948 11.9943L18.7434 13.7172C19.5086 14.8649 18.9245 16.425 17.5936 16.788C12.9494 18.0546 8.0507 18.0546 3.40644 16.788C2.07561 16.425 1.49147 14.8649 2.25664 13.7172L3.40524 11.9943C3.95609 11.168 4.25004 10.1972 4.25004 9.2041V8.5Z"
-                            fill="#BABDC1"
-                    />
-                </svg>
+            <a href="/notification" class="flex justify-center">
+                <div class="relative">
+                    <div
+                            th:if="${notification}"
+                            class="absolute p-[3px] bg-[#FF6347] rounded-full start-[20px] -top-1"
+                    ></div>
+                    <svg
+                            class="w-6"
+                            viewBox="0 0 21 23"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M10.5 0.75C6.21983 0.75 2.75004 4.21979 2.75004 8.5V9.2041C2.75004 9.90102 2.54375 10.5824 2.15717 11.1622L1.00856 12.8851C-0.324532 14.8848 0.693176 17.6028 3.01177 18.2351C3.76738 18.4412 4.52937 18.6155 5.29578 18.7581L5.29768 18.7632C6.06667 20.8151 8.12198 22.25 10.5 22.25C12.878 22.25 14.9333 20.8151 15.7023 18.7632L15.7042 18.7581C16.4706 18.6155 17.2327 18.4412 17.9883 18.2351C20.3069 17.6028 21.3246 14.8848 19.9915 12.8851L18.8429 11.1622C18.4563 10.5824 18.25 9.90102 18.25 9.2041V8.5C18.25 4.21979 14.7802 0.75 10.5 0.75ZM13.8764 19.037C11.6335 19.305 9.36644 19.3049 7.12349 19.0369C7.83444 20.0585 9.07101 20.75 10.5 20.75C11.9289 20.75 13.1655 20.0585 13.8764 19.037ZM4.25004 8.5C4.25004 5.04822 7.04826 2.25 10.5 2.25C13.9518 2.25 16.75 5.04822 16.75 8.5V9.2041C16.75 10.1972 17.044 11.168 17.5948 11.9943L18.7434 13.7172C19.5086 14.8649 18.9245 16.425 17.5936 16.788C12.9494 18.0546 8.0507 18.0546 3.40644 16.788C2.07561 16.425 1.49147 14.8649 2.25664 13.7172L3.40524 11.9943C3.95609 11.168 4.25004 10.1972 4.25004 9.2041V8.5Z"
+                                fill="#BABDC1"
+                        />
+                    </svg>
+                </div>
             </a>
             <a href="/profile" class="flex justify-center">
                 <svg
@@ -301,5 +309,26 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search)
+        const success = urlParams.get('success')
+
+        if (success) {
+            showToast('입점 신청이 완료 되었습니다. 심사를 통해 수락해드립니다.')
+        }
+    })
+
+    function showToast(message) {
+        Toastify({
+            text: message,
+            duration: 6000,
+            close: true,
+            gravity: 'bottom',
+            position: 'right',
+            backgroundColor: '#FF6347'
+        }).showToast()
+    }
+</script>
 </body>
 </html>

@@ -1,9 +1,11 @@
-package org.example.food.service;
+package org.example.food.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.food.domain.Member;
 import org.example.food.repository.MemberRepository;
 import org.example.food.security.PrincipalDetails;
+import org.example.food.service.MemberService;
+import org.example.food.service.S3Service;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final S3Service s3Service;

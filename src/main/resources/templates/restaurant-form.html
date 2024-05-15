@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="~{fragments/head :: head (ResForm)}"></div>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsJd6uBLdmRKTlR_e4Siir-Kr_JegFh4Y&libraries=places&callback=initMap"
+            async
+            defer
+    ></script>
+</head>
+<body>
+<div class="px-5 pt-10 flex flex-col justify-center items-center">
+    <div class="w-full max-w-2xl">
+        <!-- Header -->
+        <div class="w-full relative flex justify-center items-center">
+            <a href="/"
+               class="absolute left-1 w-14 rounded-full shadow-md p-2 cursor-pointer"
+            >
+                <svg
+                        id="left-arrow"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                            d="M10.25 9.02615L9.50135 8.9811C9.50045 8.9961 9.5 9.01113 9.5 9.02615H10.25ZM9.71578 8.10177L9.38104 8.77293L9.38104 8.77293L9.71578 8.10177ZM8.656 8.23115L8.16963 7.66024C8.16481 7.66434 8.16005 7.6685 8.15534 7.67273L8.656 8.23115ZM5.35 11.1952L4.84934 10.6367L4.84814 10.6378L5.35 11.1952ZM5 11.9902L5.75008 11.9964L5.74997 11.9839L5 11.9902ZM5.35 12.7852L4.84813 13.3425L4.84943 13.3437L5.35 12.7852ZM8.656 15.7482L8.15543 16.3067C8.16011 16.3109 8.16484 16.315 8.16963 16.3191L8.656 15.7482ZM9.71578 15.8775L9.38104 15.2064V15.2064L9.71578 15.8775ZM10.25 14.9532H9.5C9.5 14.9682 9.50045 14.9832 9.50135 14.9982L10.25 14.9532ZM10.25 11.2402C9.83579 11.2402 9.5 11.5759 9.5 11.9902C9.5 12.4044 9.83579 12.7402 10.25 12.7402V11.2402ZM19 12.7402C19.4142 12.7402 19.75 12.4044 19.75 11.9902C19.75 11.5759 19.4142 11.2402 19 11.2402V12.7402ZM11 11.9902V9.02615H9.5V11.9902L11 11.9902ZM10.9986 9.0712C11.04 8.38373 10.6668 7.738 10.0505 7.43061L9.38104 8.77293C9.45925 8.81193 9.5066 8.89387 9.50135 8.9811L10.9986 9.0712ZM10.0505 7.43061C9.4342 7.12323 8.69388 7.21361 8.16963 7.66024L9.14237 8.80206C9.2089 8.74539 9.30284 8.73392 9.38104 8.77293L10.0505 7.43061ZM8.15534 7.67273L4.84934 10.6367L5.85066 11.7536L9.15666 8.78958L8.15534 7.67273ZM4.84814 10.6378C4.46349 10.9842 4.24573 11.4788 4.25003 11.9964L5.74997 11.9839C5.74924 11.8958 5.78634 11.8115 5.85186 11.7525L4.84814 10.6378ZM4.25003 11.9839C4.24573 12.5015 4.46349 12.9961 4.84814 13.3425L5.85186 12.2278C5.78634 12.1688 5.74924 12.0845 5.74997 11.9964L4.25003 11.9839ZM4.84943 13.3437L8.15543 16.3067L9.15656 15.1896L5.85056 12.2266L4.84943 13.3437ZM8.16963 16.3191C8.69389 16.7657 9.4342 16.8561 10.0505 16.5487L9.38104 15.2064C9.30284 15.2454 9.2089 15.2339 9.14237 15.1772L8.16963 16.3191ZM10.0505 16.5487C10.6668 16.2413 11.04 15.5956 10.9986 14.9081L9.50135 14.9982C9.5066 15.0854 9.45925 15.1674 9.38104 15.2064L10.0505 16.5487ZM11 14.9532V11.9902L9.5 11.9902V14.9532L11 14.9532ZM10.25 12.7402H19V11.2402H10.25V12.7402Z"
+                            fill="#000000"
+                    />
+                </svg>
+            </a>
+
+            <p class="text-2xl font-bold">Restaurant Form</p>
+        </div>
+
+        <!-- Restaurant Form -->
+        <div>
+            <div class="mt-5 flex flex-col gap-5">
+                <div id="map" class="h-60 rounded-lg"></div>
+                <div class="relative">
+                    <input
+                            id="searchInput"
+                            type="text"
+                            class="p-5 text-black border rounded-lg w-full outline-none"
+                            style="background-color: rgba(31, 42, 55, 0.05)"
+                            placeholder="Enter a location"
+                    />
+                    <svg
+                            class="w-5 absolute end-0 bottom-5 right-5"
+                            viewBox="0 0 18 22"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M0.25 9.14329C0.25 4.24427 4.15501 0.25 9 0.25C13.845 0.25 17.75 4.24427 17.75 9.14329C17.75 11.5084 17.076 14.0479 15.8844 16.2419C14.6944 18.4331 12.9556 20.3372 10.7805 21.3539C9.65057 21.882 8.34943 21.882 7.21949 21.3539C5.04437 20.3372 3.30562 18.4331 2.11556 16.2419C0.924029 14.0479 0.25 11.5084 0.25 9.14329ZM9 1.75C5.00843 1.75 1.75 5.04748 1.75 9.14329C1.75 11.2404 2.35263 13.5354 3.4337 15.526C4.51624 17.5192 6.04602 19.1496 7.85465 19.995C8.58205 20.335 9.41795 20.335 10.1454 19.995C11.954 19.1496 13.4838 17.5192 14.5663 15.526C15.6474 13.5354 16.25 11.2404 16.25 9.14329C16.25 5.04748 12.9916 1.75 9 1.75ZM9 6.75C7.75736 6.75 6.75 7.75736 6.75 9C6.75 10.2426 7.75736 11.25 9 11.25C10.2426 11.25 11.25 10.2426 11.25 9C11.25 7.75736 10.2426 6.75 9 6.75ZM5.25 9C5.25 6.92893 6.92893 5.25 9 5.25C11.0711 5.25 12.75 6.92893 12.75 9C12.75 11.0711 11.0711 12.75 9 12.75C6.92893 12.75 5.25 11.0711 5.25 9Z"
+                                fill="#0D1217"
+                        />
+                    </svg>
+                </div>
+
+                <input
+                        id="storeName"
+                        type="text"
+                        style="background-color: rgba(31, 42, 55, 0.05)"
+                        placeholder="Restaurant name"
+                        class="p-5 text-black border rounded-lg w-full outline-none"
+                />
+
+                <button
+                        class="w-full bg-[#FF6347] p-5 rounded-full text-xl text-white font-semibold"
+                        onclick="submitStoreInfo()"
+                >
+                    입점 요청
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var map
+    var marker
+    var selectedLocation
+
+    function initMap() {
+        var initialLocation = {
+            lat: 36.35646057128906,
+            lng: 127.41973114013672
+        }
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: initialLocation
+        })
+
+        // 검색 기능 추가
+        var input = document.getElementById('searchInput')
+        var searchBox = new google.maps.places.SearchBox(input)
+        // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input)
+
+        // 검색 결과 위치로 지도 이동
+        map.addListener('bounds_changed', function () {
+            searchBox.setBounds(map.getBounds())
+        })
+
+        searchBox.addListener('places_changed', function () {
+            var places = searchBox.getPlaces()
+            if (places.length == 0) {
+                return
+            }
+
+            // 현재 마커 위치 업데이트
+            if (marker) {
+                marker.setMap(null) // 기존 마커 제거
+            }
+
+            var bounds = new google.maps.LatLngBounds()
+            places.forEach(function (place) {
+                if (!place.geometry) {
+                    console.log('Returned place contains no geometry')
+                    return
+                }
+
+                // 마커 생성
+                marker = new google.maps.Marker({
+                    map: map,
+                    title: place.name,
+                    position: place.geometry.location
+                })
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport)
+                } else {
+                    bounds.extend(place.geometry.location)
+                }
+            })
+            map.fitBounds(bounds)
+            selectedLocation = marker.getPosition() // 선택된 위치 업데이트
+        })
+
+        // 지도 클릭시 마커 이동
+        map.addListener('click', function (e) {
+            placeMarkerAndPanTo(e.latLng, map)
+            selectedLocation = e.latLng
+        })
+    }
+
+    function placeMarkerAndPanTo(latLng, map) {
+        if (marker) {
+            marker.setPosition(latLng)
+        } else {
+            marker = new google.maps.Marker({
+                position: latLng,
+                map: map
+            })
+        }
+        map.panTo(latLng)
+    }
+
+    function submitStoreInfo() {
+        var storeName = document.getElementById('storeName').value
+        if (!selectedLocation || !storeName) {
+            alert('위치를 설정하고(마우스로 클릭) 이름을 작성해주세요.')
+            return
+        }
+
+        var storeData = {
+            name: storeName,
+            latitude: selectedLocation.lat(),
+            longitude: selectedLocation.lng()
+        }
+
+        fetch('/restaurant/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(storeData)
+        })
+            .then((response) => {
+                if (response.ok) {
+                    window.location.href = '/?success=true'
+                } else {
+                    throw new Error('Something went wrong on API server!')
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error)
+            })
+    }
+</script>
+</body>
+</html>
