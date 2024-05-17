@@ -75,7 +75,7 @@
                             </svg>
                         </button>
                     </form>
-                    <form th:action="@{/notification/delete/{id}(id=${notification.getRestaurantResponse().getId()})}" method="post">
+                    <form th:action="@{/notification/delete/{id}(id=${notification.getId()})}" method="post">
                         <button type="submit">
                             <svg
                                     class="w-10 bg-red-200 rounded-full p-1.5"
