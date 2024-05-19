@@ -1,8 +1,10 @@
 package org.example.food.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.example.food.domain.Member;
 import org.example.food.domain.NotificationType;
 import org.example.food.domain.Restaurant;
+import org.example.food.domain.Role;
 import org.example.food.dto.RestaurantForm;
 import org.example.food.repository.RestaurantRepository;
 import org.example.food.security.PrincipalDetails;
@@ -35,6 +37,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void approve(Long restaurantId) {
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new RuntimeException("Restaurant not found with id: " + restaurantId));
+        Member owner = restaurant.getOwner();
+        owner.updateRole(Role.ROLE_OWNER);
+
         restaurant.setApproved(true);
     }
 }

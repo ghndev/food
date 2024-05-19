@@ -141,10 +141,18 @@
                         Logout
                     </a>
                     <a
+                            sec:authorize="!hasRole('ROLE_OWNER')"
                             href="/restaurant/register"
                             class="w-full text-center bg-[#edf2ff] text-[#479dff] p-5 rounded-full text-xl font-semibold"
                     >
                         입점신청
+                    </a>
+                    <a
+                            sec:authorize="hasRole('ROLE_OWNER')"
+                            href="/restaurant-form"
+                            class="w-full text-center bg-[#edf2ff] text-[#479dff] p-5 rounded-full text-xl font-semibold"
+                    >
+                        가게 관리
                     </a>
                 </div>
             </form>

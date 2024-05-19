@@ -3,6 +3,7 @@ package org.example.food.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.food.dto.RestaurantForm;
 import org.example.food.service.RestaurantService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,9 +26,10 @@ public class RestaurantController {
         return "register success";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/approve/{id}")
     public String approve(@PathVariable Long id) {
         restaurantService.approve(id);
-        return "notification";
+        return "redirect:/notification";
     }
 }

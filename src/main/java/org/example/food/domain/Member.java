@@ -51,4 +51,8 @@ public class Member {
     public void updateImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public void updateRole(Role role) {
+        this.role = role;
+    }
 }
