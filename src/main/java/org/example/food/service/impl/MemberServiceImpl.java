@@ -43,7 +43,7 @@ public class MemberServiceImpl implements MemberService {
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found with id: " + memberId));
-        member.updateImageUrl(filename);
+        member.updateImage(filename);
         updateUserDetails(member);
     }
 

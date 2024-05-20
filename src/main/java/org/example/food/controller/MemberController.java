@@ -41,7 +41,7 @@ public class MemberController {
     @GetMapping("/profile")
     public String profile(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
         model.addAttribute("name", principalDetails.getName());
-        model.addAttribute("image", principalDetails.getMember().getImageUrl());
+        model.addAttribute("image", principalDetails.getMember().getImage());
         model.addAttribute("memberNameEditRequest", new MemberNameEditRequest());
         return "profile";
     }
@@ -55,7 +55,7 @@ public class MemberController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("name", principalDetails.getName());
-            model.addAttribute("image", principalDetails.getMember().getImageUrl());
+            model.addAttribute("image", principalDetails.getMember().getImage());
             return "profile";
         }
 

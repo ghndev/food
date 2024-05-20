@@ -45,9 +45,9 @@ public class S3Service {
         log.info("fileName: " + fileName);
         File uploadFile = convert(multipartFile);
 
-        String uploadImageUrl = putS3(uploadFile, fileName);
+        putS3(uploadFile, fileName);
         removeNewFile(uploadFile);
-        return uploadImageUrl;
+        return fileName;
     }
 
     private File convert(MultipartFile file) throws IOException {

@@ -19,7 +19,7 @@ public class Member {
 
     private String email;
     private String name;
-    private String imageUrl;
+    private String image;
 
     private String provider;
     private String providerId;
@@ -34,10 +34,10 @@ public class Member {
     private List<Notification> notifications = new ArrayList<>();
 
     @Builder
-    public Member(String email, String name, String imageUrl, String provider, String providerId, Role role) {
+    public Member(String email, String name, String image, String provider, String providerId, Role role) {
         this.email = email;
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.image = image;
         this.provider = provider;
         this.providerId = providerId;
         this.role = role;
@@ -48,8 +48,8 @@ public class Member {
         return this;
     }
 
-    public void updateImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void updateImage(String image) {
+        this.image = image;
     }
 
     public void updateRole(Role role) {
