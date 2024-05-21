@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     List<Restaurant> findByApproved(boolean approved);
     List<Restaurant> findByOwnerAndApproved(Member owner, boolean approved);
+
+    List<Restaurant> findByOwnerIdAndApprovedTrue(Long ownerId);
 }

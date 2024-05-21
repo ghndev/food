@@ -45,7 +45,7 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public List<NotificationResponse> getAllNotifications(Long memberId) {
+    public List<NotificationResponse> findByMemberId(Long memberId) {
         List<Notification> notifications = notificationRepository.findByMemberId(memberId);
         return notifications.stream()
                 .map(NotificationResponse::of)

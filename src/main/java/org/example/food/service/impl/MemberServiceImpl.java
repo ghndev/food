@@ -39,11 +39,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @Transactional
     public void updateMemberImage(Long memberId, MultipartFile image) throws IOException {
-        String filename = s3Service.upload(image, "images");
+        String imagePath = s3Service.upload(image, "images");
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new RuntimeException("Member not found with id: " + memberId));
-        member.updateImage(filename);
+        member.updateImage(imagePath);
         updateUserDetails(member);
     }
 

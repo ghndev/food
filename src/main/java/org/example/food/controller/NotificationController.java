@@ -24,7 +24,7 @@ public class NotificationController {
         Long memberId = principalDetails.getMember().getId();
         notificationService.markAllNotificationsAsRead(memberId);
 
-        List<NotificationResponse> allNotifications = notificationService.getAllNotifications(memberId);
+        List<NotificationResponse> allNotifications = notificationService.findByMemberId(memberId);
         model.addAttribute("notifications", allNotifications);
         return "notification";
     }

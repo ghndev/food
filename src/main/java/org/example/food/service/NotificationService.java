@@ -12,7 +12,7 @@ public interface NotificationService {
 
     void notifyAdmins(String message, NotificationType notificationType, Restaurant restaurant);
 
-    List<NotificationResponse> getAllNotifications(Long memberId);
+    List<NotificationResponse> findByMemberId(Long memberId);
 
     void markAllNotificationsAsRead(Long memberId);
 

@@ -6,6 +6,7 @@ import org.example.food.domain.NotificationType;
 import org.example.food.domain.Restaurant;
 import org.example.food.domain.Role;
 import org.example.food.dto.RestaurantForm;
+import org.example.food.dto.RestaurantResponse;
 import org.example.food.repository.RestaurantRepository;
 import org.example.food.security.PrincipalDetails;
 import org.example.food.service.NotificationService;
@@ -14,6 +15,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +45,13 @@ public class RestaurantServiceImpl implements RestaurantService {
         owner.updateRole(Role.ROLE_OWNER);
 
         restaurant.setApproved(true);
+    }
+
+    @Override
+    public List<RestaurantResponse> findByOwnerId(Long ownerId) {
+        List<Restaurant> restaurants = restaurantRepository.findByOwnerIdAndApprovedTrue(ownerId);
+        return restaurants.stream()
+                .map(RestaurantResponse::of)
+                .collect(Collectors.toList());
     }
 }
