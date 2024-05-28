@@ -18,6 +18,7 @@ public class Restaurant {
     private Long id;
 
     private String name;
+    private int tables = 0;
 
     private double latitude;
     private double longitude;
@@ -48,5 +49,13 @@ public class Restaurant {
 
     public void setApproved(boolean b) {
         this.approved = b;
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updateTables(int tables) {
+        this.tables = tables;
     }
 }

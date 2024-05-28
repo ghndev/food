@@ -2,6 +2,7 @@ package org.example.food.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.food.domain.Menu;
+import org.example.food.domain.MenuType;
 import org.example.food.domain.Restaurant;
 import org.example.food.dto.MenuForm;
 import org.example.food.dto.MenuResponse;
@@ -47,5 +48,21 @@ public class MenuServiceImpl implements MenuService {
         return menus.stream()
                 .map(MenuResponse::of)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MenuResponse> findMenusByType(MenuType type) {
+        List<Menu> menus = menuRepository.findByType(type);
+        return menus.stream()
+                .map(MenuResponse::of)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public MenuResponse findById(Long id) {
+        Menu menu = menuRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Menu not found with id: " + id));
+
+        return MenuResponse.of(menu);
     }
 }

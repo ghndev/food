@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <div th:replace="~{fragments/head :: head (Home)}"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"
+            rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</head>
+<body>
+<div class="p-5 flex flex-col justify-center items-center">
+    <div class="w-full max-w-2xl">
+        <!-- Header -->
+        <div class="w-full relative flex justify-center items-center">
+            <svg
+                    id="left-arrow"
+                    class="absolute left-1 w-14 z-10 rounded-full shadow-md p-2 cursor-pointer"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                        d="M10.25 9.02615L9.50135 8.9811C9.50045 8.9961 9.5 9.01113 9.5 9.02615H10.25ZM9.71578 8.10177L9.38104 8.77293L9.38104 8.77293L9.71578 8.10177ZM8.656 8.23115L8.16963 7.66024C8.16481 7.66434 8.16005 7.6685 8.15534 7.67273L8.656 8.23115ZM5.35 11.1952L4.84934 10.6367L4.84814 10.6378L5.35 11.1952ZM5 11.9902L5.75008 11.9964L5.74997 11.9839L5 11.9902ZM5.35 12.7852L4.84813 13.3425L4.84943 13.3437L5.35 12.7852ZM8.656 15.7482L8.15543 16.3067C8.16011 16.3109 8.16484 16.315 8.16963 16.3191L8.656 15.7482ZM9.71578 15.8775L9.38104 15.2064V15.2064L9.71578 15.8775ZM10.25 14.9532H9.5C9.5 14.9682 9.50045 14.9832 9.50135 14.9982L10.25 14.9532ZM10.25 11.2402C9.83579 11.2402 9.5 11.5759 9.5 11.9902C9.5 12.4044 9.83579 12.7402 10.25 12.7402V11.2402ZM19 12.7402C19.4142 12.7402 19.75 12.4044 19.75 11.9902C19.75 11.5759 19.4142 11.2402 19 11.2402V12.7402ZM11 11.9902V9.02615H9.5V11.9902L11 11.9902ZM10.9986 9.0712C11.04 8.38373 10.6668 7.738 10.0505 7.43061L9.38104 8.77293C9.45925 8.81193 9.5066 8.89387 9.50135 8.9811L10.9986 9.0712ZM10.0505 7.43061C9.4342 7.12323 8.69388 7.21361 8.16963 7.66024L9.14237 8.80206C9.2089 8.74539 9.30284 8.73392 9.38104 8.77293L10.0505 7.43061ZM8.15534 7.67273L4.84934 10.6367L5.85066 11.7536L9.15666 8.78958L8.15534 7.67273ZM4.84814 10.6378C4.46349 10.9842 4.24573 11.4788 4.25003 11.9964L5.74997 11.9839C5.74924 11.8958 5.78634 11.8115 5.85186 11.7525L4.84814 10.6378ZM4.25003 11.9839C4.24573 12.5015 4.46349 12.9961 4.84814 13.3425L5.85186 12.2278C5.78634 12.1688 5.74924 12.0845 5.74997 11.9964L4.25003 11.9839ZM4.84943 13.3437L8.15543 16.3067L9.15656 15.1896L5.85056 12.2266L4.84943 13.3437ZM8.16963 16.3191C8.69389 16.7657 9.4342 16.8561 10.0505 16.5487L9.38104 15.2064C9.30284 15.2454 9.2089 15.2339 9.14237 15.1772L8.16963 16.3191ZM10.0505 16.5487C10.6668 16.2413 11.04 15.5956 10.9986 14.9081L9.50135 14.9982C9.5066 15.0854 9.45925 15.1674 9.38104 15.2064L10.0505 16.5487ZM11 14.9532V11.9902L9.5 11.9902V14.9532L11 14.9532ZM10.25 12.7402H19V11.2402H10.25V12.7402Z"
+                        fill="#000000"
+                />
+            </svg>
+            <img
+                    src="https://www.cookwithnabeela.com/wp-content/uploads/2024/02/Hamburger.webp"
+                    class="w-full h-72 rounded-lg z-0"
+                    alt=""
+            />
+        </div>
+
+        <!-- Menu Form -->
+        <form th:action="@{'/' + ${menuResponse.id}}" method="post" class="mt-5 flex flex-col gap-5">
+            <p th:text="${menuResponse.getName()}" class="text-2xl font-bold">Burger</p>
+            <p th:text="'₩ '+${menuResponse.getCost()}" class="text-[#FF6347] font-bold text-2xl">₩ 8000</p>
+            <p class="text-[#697079]">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                Consequatur ipsum placeat ratione eos maxime voluptas velit ut
+                deserunt consequuntur et sint atque ea blanditiis ipsam ab, totam
+                vitae impedit quis.
+            </p>
+
+            <!-- Quantity -->
+            <div>
+                <label
+                        for="quantity-input"
+                        class="block mb-2 text-lg font-bold text-gray-900 dark:text-white"
+                >Choose quantity:</label
+                >
+                <div class="relative flex items-center max-w-[8rem]">
+                    <button
+                            type="button"
+                            id="decrement-button"
+                            data-input-counter-decrement="quantity-input"
+                            class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+                    >
+                        <svg
+                                class="w-3 h-3 text-gray-900 dark:text-white"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 18 2"
+                        >
+                            <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M1 1h16"
+                            />
+                        </svg>
+                    </button>
+                    <input
+                            type="text"
+                            id="quantity-input"
+                            name="quantity"
+                            data-input-counter
+                            data-input-counter-min="1"
+                            data-input-counter-max="50"
+                            aria-describedby="helper-text-explanation"
+                            class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="999"
+                            value="1"
+                            required
+                    />
+                    <button
+                            type="button"
+                            id="increment-button"
+                            data-input-counter-increment="quantity-input"
+                            class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+                    >
+                        <svg
+                                class="w-3 h-3 text-gray-900 dark:text-white"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 18 18"
+                        >
+                            <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M9 1v16M1 9h16"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <button
+                    type="submit"
+                    class="flex items-center p-5 px-10 gap-5 w-fit bg-[#FF6347] rounded-full"
+            >
+                <svg
+                        class="w-10"
+                        viewBox="0 0 20 21"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M6.25 5.50151L6.25 4.5C6.25 2.42893 7.92893 0.75 10 0.75C12.0711 0.75 13.75 2.42893 13.75 4.5V5.5L13.75 5.50151C16.4344 5.5136 17.8606 5.6222 18.6606 6.59803C19.5608 7.69607 19.2287 9.35628 18.5646 12.6767L17.9646 15.6767C17.5029 17.9856 17.272 19.1401 16.4425 19.82C15.6131 20.5 14.4358 20.5 12.0812 20.5H7.9188C5.56417 20.5 4.38686 20.5 3.55742 19.82C2.72799 19.1401 2.4971 17.9856 2.03532 15.6767L1.43532 12.6767C0.771234 9.35628 0.439192 7.69607 1.33936 6.59803C2.13936 5.62219 3.56562 5.5136 6.25 5.50151ZM7.75 4.5C7.75 3.25736 8.75736 2.25 10 2.25C11.2426 2.25 12.25 3.25736 12.25 4.5V5.5H7.75V4.5ZM13 9.5C13.5523 9.5 14 9.05228 14 8.5C14 7.94772 13.5523 7.5 13 7.5C12.4477 7.5 12 7.94772 12 8.5C12 9.05228 12.4477 9.5 13 9.5ZM7.99998 8.5C7.99998 9.05228 7.55226 9.5 6.99998 9.5C6.44769 9.5 5.99998 9.05228 5.99998 8.5C5.99998 7.94772 6.44769 7.5 6.99998 7.5C7.55226 7.5 7.99998 7.94772 7.99998 8.5Z"
+                            fill="white"
+                    />
+                </svg>
+                <p class="text-3xl font-bold text-white">Add to Basket</p>
+            </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -11,6 +11,7 @@ public class RestaurantResponse {
     private Long id;
 
     private String name;
+    private int tables;
 
     private double latitude;
     private double longitude;
@@ -21,6 +22,7 @@ public class RestaurantResponse {
         return RestaurantResponse.builder()
                 .id(restaurant.getId())
                 .name(restaurant.getName())
+                .tables(restaurant.getTables())
                 .latitude(restaurant.getLatitude())
                 .longitude(restaurant.getLongitude())
                 .approved(restaurant.isApproved())

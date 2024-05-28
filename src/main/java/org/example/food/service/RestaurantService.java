@@ -1,5 +1,6 @@
 package org.example.food.service;
 
+import org.example.food.dto.RestaurantEditForm;
 import org.example.food.dto.RestaurantForm;
 import org.example.food.dto.RestaurantResponse;
 
@@ -11,4 +12,8 @@ public interface RestaurantService {
     void approve(Long restaurantId);
 
     List<RestaurantResponse> findByOwnerId(Long ownerId);
+
+    RestaurantResponse findById(Long id);
+
+    void updateRestaurant(Long restaurantId, RestaurantEditForm restaurantEditForm);
 }

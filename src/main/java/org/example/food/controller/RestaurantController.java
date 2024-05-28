@@ -1,6 +1,7 @@
 package org.example.food.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.food.dto.RestaurantEditForm;
 import org.example.food.dto.RestaurantForm;
 import org.example.food.dto.RestaurantResponse;
 import org.example.food.security.PrincipalDetails;
@@ -45,4 +46,19 @@ public class RestaurantController {
         model.addAttribute("restaurants", restaurantResponses);
         return "my-restaurants";
     }
+
+    @GetMapping("/my/{id}")
+    public String getMenus(@PathVariable Long id, Model model) {
+        RestaurantResponse restaurantResponse = restaurantService.findById(id);
+        model.addAttribute("restaurantId", id);
+        model.addAttribute("restaurantResponse", restaurantResponse);
+        return "menu-form";
+    }
+
+    @PostMapping("{id}/update")
+    public String updateRestaurant(@ModelAttribute RestaurantEditForm restaurantEditForm, @PathVariable Long id) {
+        restaurantService.updateRestaurant(id, restaurantEditForm);
+        return "redirect:/restaurant/my/" + id;
+    }
+
 }

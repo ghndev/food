@@ -33,6 +33,9 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications = new ArrayList<>();
 
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Basket basket;
+
     @Builder
     public Member(String email, String name, String image, String provider, String providerId, Role role) {
         this.email = email;
@@ -54,5 +57,9 @@ public class Member {
 
     public void updateRole(Role role) {
         this.role = role;
+    }
+
+    public void setBasket(Basket basket) {
+        this.basket = basket;
     }
 }

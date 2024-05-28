@@ -4,7 +4,6 @@ import lombok.Builder;
 import lombok.Getter;
 import org.example.food.domain.Menu;
 import org.example.food.domain.MenuType;
-import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Builder

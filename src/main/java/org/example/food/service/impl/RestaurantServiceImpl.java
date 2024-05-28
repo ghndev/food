@@ -5,6 +5,7 @@ import org.example.food.domain.Member;
 import org.example.food.domain.NotificationType;
 import org.example.food.domain.Restaurant;
 import org.example.food.domain.Role;
+import org.example.food.dto.RestaurantEditForm;
 import org.example.food.dto.RestaurantForm;
 import org.example.food.dto.RestaurantResponse;
 import org.example.food.repository.RestaurantRepository;
@@ -53,5 +54,23 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurants.stream()
                 .map(RestaurantResponse::of)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public RestaurantResponse findById(Long id) {
+        Restaurant restaurant = restaurantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Restaurant not found with id: " + id));
+
+        return RestaurantResponse.of(restaurant);
+    }
+
+    @Override
+    @Transactional
+    public void updateRestaurant(Long restaurantId, RestaurantEditForm restaurantEditForm) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+                .orElseThrow(() -> new RuntimeException("Restaurant not found with id: " + restaurantId));
+
+        restaurant.updateName(restaurantEditForm.getName());
+        restaurant.updateTables(restaurantEditForm.getTables());
     }
 }
