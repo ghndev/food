@@ -19,16 +19,21 @@ public class Basket {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToMany
-    @JoinTable(
-            name = "basket_menu",
-            joinColumns = @JoinColumn(name = "basket_id"),
-            inverseJoinColumns = @JoinColumn(name = "menu_id")
-    )
-    private List<Menu> menus = new ArrayList<>();
+    @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BasketMenu> basketMenus = new ArrayList<>();
 
     @Builder
     public Basket(Member member) {
         this.member = member;
+    }
+
+    public void addBasketMenu(BasketMenu basketMenu) {
+        basketMenus.add(basketMenu);
+        basketMenu.setBasket(this);
+    }
+
+    public void removeBasketMenu(BasketMenu basketMenu) {
+        basketMenus.remove(basketMenu);
+        basketMenu.setBasket(null);
     }
 }

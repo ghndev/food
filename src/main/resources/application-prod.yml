@@ -35,3 +35,8 @@ cloud:
       auto: false
     s3:
       bucket: ${AWS_BUCKET}
+
+stripe:
+  api:
+    public-key: ${PUBLIC_KEY}
+    secret-key: ${SECRET_KEY}

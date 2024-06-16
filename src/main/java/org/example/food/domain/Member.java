@@ -19,6 +19,7 @@ public class Member {
 
     private String email;
     private String name;
+    private String password;
     private String image;
 
     private String provider;
@@ -37,9 +38,10 @@ public class Member {
     private Basket basket;
 
     @Builder
-    public Member(String email, String name, String image, String provider, String providerId, Role role) {
+    public Member(String email, String name, String password, String image, String provider, String providerId, Role role) {
         this.email = email;
         this.name = name;
+        this.password = password;
         this.image = image;
         this.provider = provider;
         this.providerId = providerId;

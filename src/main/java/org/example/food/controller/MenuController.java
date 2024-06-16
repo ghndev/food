@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.example.food.domain.MenuType;
 import org.example.food.dto.MenuForm;
 import org.example.food.dto.MenuResponse;
+import org.example.food.security.PrincipalDetails;
+import org.example.food.service.BasketService;
 import org.example.food.service.MenuService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +20,7 @@ import java.util.List;
 public class MenuController {
 
     private final MenuService menuService;
+    private final BasketService basketService;
 
     @PostMapping("/restaurant/{id}")
     public String menuForm(@ModelAttribute MenuForm menuForm, @PathVariable Long id) throws IOException {
@@ -39,5 +40,15 @@ public class MenuController {
         MenuResponse menuResponse = menuService.findById(id);
         model.addAttribute("menuResponse", menuResponse);
         return "menu-detail";
+    }
+
+    @PostMapping("/{menuId}")
+    public String addToBasket(@PathVariable Long menuId,
+                              @RequestParam int quantity,
+                              @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long memberId = principalDetails.getMember().getId();
+        basketService.addMenuToBasket(memberId, menuId, quantity);
+
+        return "redirect:/basket";
     }
 }

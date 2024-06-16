@@ -8,8 +8,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -19,16 +17,13 @@ public class BasketController {
 
     private final BasketService basketService;
 
-    @PostMapping("/{menuId}")
-    public String add(@PathVariable Long menuId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        basketService.addMenuToBasket(principalDetails.getMember().getId(), menuId);
-        return "/";
-    }
-
     @GetMapping
     public String viewBasket(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
-        Basket basket = basketService.findByMemberId(principalDetails.getMember().getId());
+        Long memberId = principalDetails.getMember().getId();
+        Basket basket = basketService.findByMemberId(memberId);
+        int totalPrice = basketService.calculateTotalPrice(memberId);
         model.addAttribute("basket", basket);
+        model.addAttribute("totalPrice", totalPrice);
         return "basket";
     }
 }

@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="p-5 flex flex-col justify-center items-center">
-    <div class="w-full max-w-2xl">
+    <div class="w-full max-w-lg">
         <!-- Header -->
         <div class="w-full relative flex justify-center items-center">
             <svg
@@ -28,7 +28,7 @@
                 />
             </svg>
             <img
-                    src="https://www.cookwithnabeela.com/wp-content/uploads/2024/02/Hamburger.webp"
+                    th:src="${menuResponse.getImage()}"
                     class="w-full h-72 rounded-lg z-0"
                     alt=""
             />
