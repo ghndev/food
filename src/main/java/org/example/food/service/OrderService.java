@@ -14,7 +14,6 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final MenuRepository menuRepository;
     private final BasketService basketService;
 
     @Transactional
@@ -37,10 +36,19 @@ public class OrderService {
         }
         order =  orderRepository.save(order);
 
-
         basket.getBasketMenus().clear();
         basketService.save(basket);
 
         return order;
+    }
+
+    public List<Order> getPendingOrdersByRestaurantId(Long restaurantId) {
+        return orderRepository.findByRestaurantIdAndStatus(restaurantId, OrderStatus.PENDING);
+    }
+
+    @Transactional
+    public void completeOrder(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid order Id:" + id));
+        order.setStatus(OrderStatus.COMPLETED);
     }
 }
